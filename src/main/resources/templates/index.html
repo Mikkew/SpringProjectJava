@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/png" th:href="@{/apple-icon-57x57.png}"/>
+        <!-- CSS only -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css"
+            rel="stylesheet"/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <body class="container mt-5">
+        <header th:replace="layout/plantilla :: header"></header>
+        <hr> 
+        <br>
+        <div class="mb-5" th:if="${personas != null AND !personas.empty}">
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th th:text="#{persona.nombre}"></th>
+                    <th th:text="#{persona.email}"></th>
+                    <th th:text="#{persona.telefono}"></th>
+                    <th th:text="#{accion.editar}"></th>
+                    <th th:text="#{accion.eliminar}"></th>
+                </tr>
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.idPersona}"></td>
+                    <td th:text="${persona.nombre}+' '+${persona.apellido}"></td>
+                    <td th:text="${persona.email}">${persona.email}</td>
+                    <td th:text="${persona.telefono}">${persona.telefono}</td>
+                    <td>
+                        <a th:href="@{/editar/}+${persona.idPersona}">
+                            <i class="bi bi-file-check-fill" style="color: blue;"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/eliminar(idPersona=${persona.idPersona})}">    
+                            <i class="bi bi-trash-fill" style="color: red;"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mb-5" th:if="${personas == null AND personas.empty}">
+            <span> [[#{persona.lista_vacia}]] </span>
+        </div>
+        <br>
+        <a th:href="@{/agregar}" class="btn btn-primary">[[#{persona.crear}]]</a>
+        <footer th:replace="layout/plantilla :: footer"></footer>
+    </body>
+</html>

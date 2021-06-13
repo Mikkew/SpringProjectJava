@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:fragment="header">
+            <h1 th:text="#{plantilla.titulo}"></h1>
+        </header>
+
+        <footer class ="mt-5" th:fragment="footer">
+            <div class="container">
+                <a th:href="@{/(lang=en)}">
+                    <i class="flag flag-us"></i>
+                </a>
+                <a th:href="@{/(lang=es)}">
+                    <i class="flag flag-mx"></i>
+                </a> 
+            </div>
+
+            <div class="container">
+                <!<!-- comment <p class="mb-1" th:text="#{plantilla.pie_pagina}"></p> -->
+                <p> [[#{plantilla.pie_pagina}]] </p>
+            </div>
+        </footer>
+    </body>
+</html>

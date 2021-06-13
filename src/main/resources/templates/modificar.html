@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>[[#{plantilla.titulo_persona}]]</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/png" th:href="@{/apple-icon-57x57.png}"/>
+        <!-- CSS only -->
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
+              crossorigin="anonymous">
+    </head>
+    <body class="container mt-5 mb-5">
+        <h1>[[#{plantilla.titulo_persona}]]</h1>
+        <hr> 
+        <br>
+        <form th:action="@{/guardar}" method="post" th:object="${persona}">
+            <input type="hidden" name="idPersona" th:field="*{idPersona}" /> 
+            <div class="mb-3">
+                <label for="nombre" class="form-label" th:text="#{persona.nombre}"></label>
+                <input type="text" class="form-control" name="nombre" th:field="*{nombre}">
+                <span class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label" th:text="#{persona.apellido}">Apellido</label>
+                <input type="text" class="form-control" name="apellido" th:field="*{apellido}">
+                <span class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label" th:text="#{persona.email}">Email</label>
+                <input type="email" class="form-control" name="email" th:field="*{email}">
+                <span class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label" th:text="#{persona.telefono}">Telefono</label>
+                <input type="tel" class="form-control" name="telefono" th:field="*{telefono}">
+            </div>
+            <br>
+            <div class="d-flex flex-wrap">
+                <a th:href="@{/}" class="btn btn-primary me-auto p-2 bd-highlight">[[#{accion.regresar}]]</a>
+                <input type="submit" class="btn btn-danger" name="guardar" th:value="#{accion.guardar}"/>
+            </div>
+        </form>
+    </body>
+
+</html>
