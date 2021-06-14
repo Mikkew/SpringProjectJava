@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Inicio</title>
         <meta charset="UTF-8">
@@ -27,8 +28,13 @@
                         <th class="font-weight-bold" scope="col" th:text="#{persona.nombre}"></th>
                         <th class="font-weight-bold" scope="col" th:text="#{persona.email}"></th>
                         <th class="font-weight-bold" scope="col" th:text="#{persona.telefono}"></th>
-                        <th class="font-weight-bold" scope="col" th:text="#{accion.editar}"></th>
-                        <th class="font-weight-bold" scope="col" th:text="#{accion.eliminar}"></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')" 
+                            class="font-weight-bold" 
+                            scope="col" 
+                            th:text="#{accion.editar}"></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')" 
+                            class="font-weight-bold" 
+                            scope="col" th:text="#{accion.eliminar}"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,12 +43,12 @@
                         <td th:text="${persona.nombre}+' '+${persona.apellido}"></td>
                         <td th:text="${persona.email}">${persona.email}</td>
                         <td th:text="${persona.telefono}">${persona.telefono}</td>
-                        <td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/editar/}+${persona.idPersona}">
                                 <i class="bi bi-file-check-fill" style="color: blue;"></i>
                             </a>
                         </td>
-                        <td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/eliminar(idPersona=${persona.idPersona})}">    
                                 <i class="bi bi-trash-fill" style="color: red;"></i>
                             </a>
@@ -55,7 +61,7 @@
             <span> [[#{persona.lista_vacia}]] </span>
         </div>
         <br>
-        <a th:href="@{/agregar}" class="btn btn-primary">[[#{persona.crear}]]</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}" class="btn btn-primary">[[#{persona.crear}]]</a>
         <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>

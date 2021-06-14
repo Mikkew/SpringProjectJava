@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-      xmlns="http://www.w3.org/1999/xhtml">
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Plantilla</title>
         <meta charset="UTF-8">
@@ -9,7 +10,6 @@
         <header th:fragment="header">
             <h1 th:text="#{plantilla.titulo}"></h1>
         </header>
-
         <footer class ="mt-5" th:fragment="footer">
             <div class="d-flex flex-row">
                 <div class="container p-2">
@@ -24,9 +24,17 @@
                     <!-- comment <p class="mb-1" th:text="#{plantilla.pie_pagina}"></p> -->
                     <p> [[#{plantilla.pie_pagina}]] </p>
                 </div>
-                <form method="post" th:action="@{/logout}">
-                    <a href="#" onclick="this.parentNode.submit();" th:text="Logout"></a>
-                </form>
+                <span class="container p-2">
+                    <b>User: </b> <span sec:authentication="name"></span>
+                </span>
+                <span class="container p-2">
+                    <b>Roles:</b> <span sec:authentication="principal.authorities">Roles</span>
+                </span>
+                <div class="p-2">
+                    <form method="post" th:action="@{/logout}">
+                        <a href="#" onclick="this.parentNode.submit();" th:text="Logout"></a>
+                    </form>
+                </div>
             </div>
         </footer>
     </body>
