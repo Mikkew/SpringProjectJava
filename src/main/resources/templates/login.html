@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/png" th:href="@{/apple-icon-57x57.png}"/>
+        <!-- CSS only -->
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
+              crossorigin="anonymous">
+    </head>
+    <body class="container mt-5">
+        <header th:fragment="header">
+            <h1 th:text="#{plantilla.login}"></h1>
+        </header>
+        <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="username" id="username">
+                <!--<span class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span> -->
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="password" id="password">
+                <!--<span class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span> -->
+            </div>
+            <div class="d-flex flex-wrap">
+                <input type="submit" class="btn btn-danger" th:value="Login"/>
+            </div>
+        </form>
+    </body>
+</html>

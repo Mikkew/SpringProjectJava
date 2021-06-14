@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.validation.Errors;
 
 //import mx.com.gm.dao.PersonaDao;
 import mx.com.gm.domain.Persona;
 import mx.com.gm.servicio.PersonaService;
-import org.springframework.validation.Errors;
 
 @Controller
 @Slf4j
@@ -22,12 +24,12 @@ public class ControladorInicio {
     private PersonaService personaService;
 
     @GetMapping("/")
-    public String inicio(Model model) {
+    public String inicio(Model model, @AuthenticationPrincipal User user) {
 
         var personas = this.personaService.listarPersonas();
         log.info("Ejecutando el controlador Spring MVC");
         //personas.forEach( persona -> log.info(persona.toString()));
-
+        log.info("Usuario Logueado: " + user);
         model.addAttribute("personas", personas);
         return "index";
     }
